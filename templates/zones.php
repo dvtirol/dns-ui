@@ -70,8 +70,8 @@ foreach($zones as $zone) {
 						<a href="<?php outurl('/zones/'.urlencode(DNSZoneName::unqualify($zone->name)))?>"><?php out(DNSZoneName::unqualify($zone->name))?></a>
 					</td>
 					<td><?php out($zone->serial)?></td>
-					<td><?php out($zone->kind)?></td>
-					<td><?php out($zone->account)?></td>
+					<td class="kind-<?php out($zone->kind)?>"><?php out($zone->kind)?></td>
+					<td class="account-<?php out(preg_replace('/[^a-zA-Z0-9]/', '', $zone->account), ESC_NONE)?>"><?php out($zone->account)?></td>
 					<?php if($dnssec_enabled) { ?>
 					<td<?php if($zone->dnssec) out(' class="success"', ESC_NONE) ?>><?php out($zone->dnssec ? 'Enabled' : 'Disabled')?></td>
 					<?php } ?>
@@ -110,8 +110,8 @@ foreach($zones as $zone) {
 					<td><?php out(ipv4_reverse_zone_to_range($zone->name))?></td>
 					<td><?php out(ipv4_reverse_zone_to_subnet($zone->name))?></td>
 					<td><?php out($zone->serial)?></td>
-					<td><?php out($zone->kind)?></td>
-					<td><?php out($zone->account)?></td>
+					<td class="kind-<?php out($zone->kind)?>"><?php out($zone->kind)?></td>
+					<td class="account-<?php out(preg_replace('/[^a-zA-Z0-9]/', '', $zone->account), ESC_NONE)?>"><?php out($zone->account)?></td>
 					<?php if($dnssec_enabled) { ?>
 					<td<?php if($zone->dnssec) out(' class="success"', ESC_NONE) ?>><?php out($zone->dnssec ? 'Enabled' : 'Disabled')?></td>
 					<?php } ?>
@@ -157,8 +157,8 @@ foreach($zones as $zone) {
 					<td><tt><?php out(ipv6_reverse_zone_to_range($zone->name))?></tt></td>
 					<td><?php out(ipv6_reverse_zone_to_subnet($zone->name))?></td>
 					<td><?php out($zone->serial)?></td>
-					<td><?php out($zone->kind)?></td>
-					<td><?php out($zone->account)?></td>
+					<td class="kind-<?php out($zone->kind)?>"><?php out($zone->kind)?></td>
+					<td class="account-<?php out(preg_replace('/[^a-zA-Z0-9]/', '', $zone->account))?>"><?php out($zone->account)?></td>
 					<?php if($dnssec_enabled) { ?>
 					<td<?php if($zone->dnssec) out(' class="success"', ESC_NONE) ?>><?php out($zone->dnssec ? 'Enabled' : 'Disabled')?></td>
 					<?php } ?>
