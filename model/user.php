@@ -121,13 +121,16 @@ class User extends Record {
 	*/
 	public function get_details_from_php_auth() {
 		global $config;
-		if($this->uid == $_SERVER['PHP_AUTH_USER'] and isset($_SERVER['PHP_AUTH_NAME']) and isset($_SERVER['PHP_AUTH_EMAIL']) and isset($_SERVER['PHP_AUTH_GROUPS'])) {
+		$name_field = 'PHP_AUTH_' . !empty($config['php_auth']['name_field']) ? $config['php_auth']['name_field'] : 'NAME');
+		$email_field = 'PHP_AUTH_' . !empty($config['php_auth']['email_field']) ? $config['php_auth']['email_field'] : 'EMAIL');
+		$groups_field = 'PHP_AUTH_' . !empty($config['php_auth']['groups_field']) ? $config['php_auth']['groups_field'] : 'GROUPS';
+		if($this->uid == $_SERVER['PHP_AUTH_USER'] and isset($_SERVER[$name_field]) and isset($_SERVER[$email_field]) and isset($_SERVER[$groups_field])) {
 			$this->auth_realm = 'PHP_AUTH';
-			$this->name = $_SERVER['PHP_AUTH_NAME'];
-			$this->email = $_SERVER['PHP_AUTH_EMAIL'];
+			$this->name = $_SERVER[$name_field];
+			$this->email = $_SERVER[$email_field];
 			$this->active = 1;
 			$this->admin = 0;
-			$groups = explode(' ', $_SERVER['PHP_AUTH_GROUPS']);
+			$groups = explode(' ', $_SERVER[$groups_field]);
 			foreach($groups as $group) {
 				if($group == $config['php_auth']['admin_group']) $this->admin = 1;
 			}
